@@ -10,4 +10,6 @@ public interface UserService {
     User getSingleUser(String id);
 
     List<User> getAllUsers();
+
+    User updateEmailAddress(User user);
 }

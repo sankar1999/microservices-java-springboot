@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -27,5 +28,13 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getAllUsers() {
         return repository.findAll();
+    }
+
+    @Override
+    public User updateEmailAddress(User user) {
+        User requestObj = repository.findById(user.getId()).get();
+        requestObj.setEmailId(user.getEmailId());
+        repository.save(requestObj);
+        return requestObj;
     }
 }
