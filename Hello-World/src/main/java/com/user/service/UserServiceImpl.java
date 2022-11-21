@@ -23,6 +23,8 @@ public class UserServiceImpl implements UserService {
     @Override
     public User getSingleUser(String id) {
         return repository.findById(id).get();
+        //
+
     }
 
     @Override
