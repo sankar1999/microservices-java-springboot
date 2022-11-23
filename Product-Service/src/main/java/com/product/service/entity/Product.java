@@ -27,4 +27,10 @@ public class Product {
     @Column(name = "QUANTITY")
     private long quantity;
 
+    public Product(String productName, long price, long quantity) {
+        this.productName = productName;
+        this.price = price;
+        this.quantity = quantity;
+    }
+
 }
