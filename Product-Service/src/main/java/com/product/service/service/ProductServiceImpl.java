@@ -1,6 +1,7 @@
 package com.product.service.service;
 
 import com.product.service.entity.Product;
+import com.product.service.exception.ProductServiceCustomException;
 import com.product.service.model.ProductRequest;
 import com.product.service.model.ProductRequestForUpdate;
 import com.product.service.model.ProductResponse;
@@ -38,7 +39,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public ProductResponse getProduct(long id) {
         Product product = productRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Product with given id not found..."));
+                .orElseThrow(() -> new ProductServiceCustomException("Product with given id not found...", "PRODUCT_NOT_FOUND"));
         ProductResponse productResponse = new ProductResponse();
         BeanUtils.copyProperties(product, productResponse);
 
