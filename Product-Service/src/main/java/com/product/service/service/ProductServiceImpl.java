@@ -2,6 +2,7 @@ package com.product.service.service;
 
 import com.product.service.entity.Product;
 import com.product.service.model.ProductRequest;
+import com.product.service.model.ProductRequestForUpdate;
 import com.product.service.model.ProductResponse;
 import com.product.service.repository.ProductRepository;
 import lombok.extern.log4j.Log4j2;
@@ -11,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
@@ -78,6 +80,38 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void deleteProductById(long id) {
         productRepository.deleteById(id);
+    }
+
+    @Override
+    public void updateSingleProduct(ProductRequestForUpdate productRequestForUpdate) {
+        Long productId = productRequestForUpdate.getProductId();
+        Optional<Product> getProduct =
+                productRepository.findById(productId);
+
+        Product product = new Product();
+        product.setProductId(productRequestForUpdate.getProductId());
+        product.setProductName(productRequestForUpdate.getProductName());
+        product.setPrice(productRequestForUpdate.getPrice());
+        product.setQuantity(productRequestForUpdate.getQuantity());
+
+        System.out.println(product);
+
+        productRepository.save(product);
+    }
+
+    @Override
+    public void updateListOfProducts(List<ProductRequestForUpdate> productsRequest) {
+        productsRequest.forEach(System.out::println);
+        List<Product> products = productsRequest.stream()
+                .map(p -> {
+                    Product product = new Product();
+                    product.setProductId(p.getProductId());
+                    product.setProductName(p.getProductName());
+                    product.setPrice(p.getPrice());
+                    product.setQuantity(p.getQuantity());
+                    return product;
+                }).collect(Collectors.toList());
+        productRepository.saveAll(products);
     }
 
 

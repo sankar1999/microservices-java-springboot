@@ -1,6 +1,7 @@
 package com.product.service.controller;
 
 import com.product.service.model.ProductRequest;
+import com.product.service.model.ProductRequestForUpdate;
 import com.product.service.model.ProductResponse;
 import com.product.service.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,4 +54,17 @@ public class ProductController {
         productService.deleteProductById(id);
         return "Success";
     }
+
+    @PostMapping("/updateSingleProduct")
+    public String updateSingleProduct(@RequestBody ProductRequestForUpdate productRequestForUpdate) {
+        productService.updateSingleProduct(productRequestForUpdate);
+        return "Success";
+    }
+
+    @PostMapping("/updateListOfProducts")
+    public void updateListOfProducts(@RequestBody List<ProductRequestForUpdate> productsRequest) {
+        productService.updateListOfProducts(productsRequest);
+    }
+
+
 }

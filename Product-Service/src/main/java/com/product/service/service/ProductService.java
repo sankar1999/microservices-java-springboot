@@ -1,6 +1,7 @@
 package com.product.service.service;
 
 import com.product.service.model.ProductRequest;
+import com.product.service.model.ProductRequestForUpdate;
 import com.product.service.model.ProductResponse;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface ProductService {
     void deleteAllProducts();
 
     void deleteProductById(long id);
+
+    void updateSingleProduct(ProductRequestForUpdate productRequestForUpdate);
+
+    void updateListOfProducts(List<ProductRequestForUpdate> productsRequest);
 }
