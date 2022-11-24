@@ -8,4 +8,15 @@ spring:
     config:
       server:
         git:
-          uri: 
+          uri: https://github.com/sankar1999/microservices-java-springboot/blob/16c9ec5337304c98b707118bdae137053e239a49/Spring-App-Config
+          clone-on-start: true
+
+
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    fetch-registry: true
+    register-with-eureka: true
+    service-url:
+      defaultZone: ${EUREKA_SERVER_ADDRESS:http://localhost:8081/eureka}
