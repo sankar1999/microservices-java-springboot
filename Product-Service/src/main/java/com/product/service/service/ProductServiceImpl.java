@@ -60,7 +60,6 @@ public class ProductServiceImpl implements ProductService {
                     return productResponse;
                 })
                 .collect(Collectors.toList());
-        productResponses.forEach(System.out::println);
         return productResponses;
     }
 
@@ -69,7 +68,6 @@ public class ProductServiceImpl implements ProductService {
         List<Product> products = (List<Product>) productRequests.stream()
                 .map(p -> new Product(p.getName(), p.getPrice(), p.getQuantity()))
                 .collect(Collectors.toList());
-        products.forEach(System.out::println);
         productRepository.saveAll(products);
     }
 
@@ -94,8 +92,6 @@ public class ProductServiceImpl implements ProductService {
         product.setProductName(productRequestForUpdate.getProductName());
         product.setPrice(productRequestForUpdate.getPrice());
         product.setQuantity(productRequestForUpdate.getQuantity());
-
-        System.out.println(product);
 
         productRepository.save(product);
     }
