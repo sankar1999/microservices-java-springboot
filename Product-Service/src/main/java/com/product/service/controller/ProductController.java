@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.ws.rs.Path;
 import java.util.List;
 
 @RestController
@@ -64,6 +65,14 @@ public class ProductController {
     @PostMapping("/updateListOfProducts")
     public void updateListOfProducts(@RequestBody List<ProductRequestForUpdate> productsRequest) {
         productService.updateListOfProducts(productsRequest);
+    }
+
+    @PutMapping("/reduceQuantity/{id}")
+    public ResponseEntity<Void> reduceQuantity(
+            @PathVariable("id") Long productId,
+            @RequestParam long quantity) {
+        productService.reduceQuantity(productId, quantity);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
 
