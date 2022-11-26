@@ -25,4 +25,6 @@ public interface ProductService {
     void updateListOfProducts(List<ProductRequestForUpdate> productsRequest);
 
     void reduceQuantity(Long productId, long quantity);
+
+    void increaseQuantity(Long productId, long quantity);
 }

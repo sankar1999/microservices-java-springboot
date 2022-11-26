@@ -75,5 +75,13 @@ public class ProductController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+    @PutMapping("/increaseQuantity/{id}")
+    public ResponseEntity<Void> increaseQuantity(
+            @PathVariable("id") Long productId,
+            @RequestParam long quantity) {
+        productService.increaseQuantity(productId, quantity);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
 
 }

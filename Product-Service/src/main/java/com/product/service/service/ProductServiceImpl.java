@@ -118,13 +118,24 @@ public class ProductServiceImpl implements ProductService {
                 .orElseThrow(() -> new ProductServiceCustomException(
                         "Product with given id not found", "PRODUCT_NOT_FOUND"
                 ));
-        if(product.getProductId() < productId) {
+        if(product.getQuantity() < quantity) {
             throw new ProductServiceCustomException(
                     "Product not have sufficient quantity",
                     "INSUFFICIENT_QUANTITY"
             );
         }
         product.setQuantity(product.getQuantity() - quantity);
+        productRepository.save(product);
+    }
+
+    @Override
+    public void increaseQuantity(Long productId, long quantity) {
+        Product product = productRepository.findById(productId)
+                .orElseThrow(() -> new ProductServiceCustomException(
+                        "Given Id is not found",
+                        "Given Product Id is not found"
+                ));
+        product.setQuantity(quantity);
         productRepository.save(product);
     }
 
