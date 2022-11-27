@@ -1,5 +1,6 @@
 package com.orderservice.model;
 
+import com.orderservice.external.client.response.PaymentResponse;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ public class OrderResponse {
     private String orderStatus;
     private Long amount;
     private ProductDetails productDetails;
+    private PaymentDetails paymentDetails;
 
     @Data
     @AllArgsConstructor
@@ -31,5 +33,21 @@ public class OrderResponse {
         private long price;
 
     }
+
+    @Data
+    @NoArgsConstructor
+    @AllArgsConstructor
+    @Builder
+    public static class PaymentDetails {
+
+        private Long paymentId;
+        private String status;
+        private PaymentMode paymentMode;
+        private Long amount;
+        private Instant paymentDate;
+        private Long orderId;
+
+    }
+
 
 }
