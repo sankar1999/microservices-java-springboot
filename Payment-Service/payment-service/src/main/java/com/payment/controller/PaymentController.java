@@ -17,8 +17,8 @@ public class PaymentController {
     @Autowired
     private PaymentService paymentService;
 
-    @PostMapping("/")
-    public ResponseEntity<Long> doPayment(@RequestBody PaymentRequest paymentRequest) {
+    @PostMapping("/doPayment")
+    public ResponseEntity<Object> doPayment(@RequestBody PaymentRequest paymentRequest) {
         return new ResponseEntity<>(
                 paymentService.dopayment(paymentRequest), HttpStatus.OK
         );

@@ -1,7 +1,9 @@
 package com.orderservice.service;
 
 import com.orderservice.entity.Order;
+import com.orderservice.external.client.PaymentService;
 import com.orderservice.external.client.ProductService;
+import com.orderservice.external.client.request.PaymentRequest;
 import com.orderservice.model.OrderRequest;
 import com.orderservice.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
@@ -20,6 +22,9 @@ public class OrderServiceImpl implements OrderService {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private PaymentService paymentService;
+
     @Override
     public Long placeOrder(OrderRequest orderRequest) {
 
@@ -36,8 +41,26 @@ public class OrderServiceImpl implements OrderService {
                 .build();
         order = orderRepository.save(order);
 
+        // Calling Payment Service
+        PaymentRequest paymentRequest = PaymentRequest.builder()
+                .orderId(order.getId())
+                .paymentMode(orderRequest.getPaymentMode())
+                .amount(orderRequest.getTotalAmount())
+                .build();
 
+        String orderStatus = null;
+        try {
+            paymentService.doPayment(paymentRequest);
+            orderStatus = "PLACED";
+        } catch (Exception e) {
+            orderStatus = "PAYMENT_FAILED";
+        }
+
+        order.setOrderStatus(orderStatus);
+        orderRepository.save(order);
 
         return order.getId();
     }
+
+
 }
