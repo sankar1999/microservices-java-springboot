@@ -2,6 +2,9 @@ server:
   port: 8080
 
 spring:
+  cloud:
+    config:
+      enabled: false
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/productdb
     username: root
@@ -13,9 +16,6 @@ spring:
       ddl-auto: update
   application:
     name: PRODUCT-SERVICE
-#  config:
-#    import:
-#      configserver: http://localhost:8085
 
 
 eureka:
