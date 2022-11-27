@@ -2,9 +2,6 @@ server:
   port: 8082
 
 spring:
-  cloud:
-    config:
-      enabled: false
   datasource:
     url: jdbc:mysql://${DB_HOST:localhost}:3306/orderdb
     username: root
@@ -16,20 +13,21 @@ spring:
       ddl-auto: update
   application:
     name: ORDER-SERVICE
+  config:
+    import: configserver:http://localhost:9095
 
 resilience4j:
   circuitbreaker:
     instances:
       external:
-        eventConsumerBufferSize: 10
-        failureRateThreshold: 50
-        minimumNumberOfCalls: 5
-        automaticTransitionFromOpenToHalfOpenEnabled: true
-        waitDurationInOpenState: 5s
-        permittedNumberOfCallsInHalfOpenState: 3
-        slidingWindowSize: 10
-        slidingWindowType: COUNT_BASED
-
+        event-consumer-buffer-size: 10
+        failure-rate-threshold: 50
+        minimum-number-of-calls: 5
+        automatic-transistion-from-open-to-half-open-enabled: true
+        wait-duration-in-open-state: 5s
+        permitted-number-of-calls-in-half-open-state: 3
+        sliding-windows-size: 10
+        sliding-window-type: COUNT_BASED
 
 
 eureka:

@@ -19,7 +19,7 @@ public class CloudGatewayApplication {
 
 	@Bean
 	KeyResolver userKeySolver() {
-		return exchange -> Mono.just("userkey");
+		return exchange -> Mono.just("userKey");
 	}
 
 	@Bean
