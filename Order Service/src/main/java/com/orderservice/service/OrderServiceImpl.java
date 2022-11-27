@@ -1,14 +1,18 @@
 package com.orderservice.service;
 
 import com.orderservice.entity.Order;
+import com.orderservice.exception.CustomException;
 import com.orderservice.external.client.PaymentService;
 import com.orderservice.external.client.ProductService;
 import com.orderservice.external.client.request.PaymentRequest;
+import com.orderservice.external.client.response.ProductResponse;
 import com.orderservice.model.OrderRequest;
+import com.orderservice.model.OrderResponse;
 import com.orderservice.repository.OrderRepository;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
 
@@ -24,6 +28,9 @@ public class OrderServiceImpl implements OrderService {
 
     @Autowired
     private PaymentService paymentService;
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     @Override
     public Long placeOrder(OrderRequest orderRequest) {
@@ -60,6 +67,41 @@ public class OrderServiceImpl implements OrderService {
         orderRepository.save(order);
 
         return order.getId();
+    }
+
+    @Override
+    public OrderResponse getOrderDetails(Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() ->
+                        new CustomException("Order not found for the order Id: " + orderId +
+                                " NOT_FOUND", 404));
+
+        ProductResponse productResponse
+                = restTemplate.getForObject(
+                        "http://PRODUCT-SERVICE/product/getProduct/" + order.getProductId(),
+                ProductResponse.class
+        );
+
+        OrderResponse.ProductDetails productDetails
+                = OrderResponse.ProductDetails
+                .builder()
+                .productName(productResponse.getProductName())
+                .productId(productResponse.getProductId())
+                .quantity(productResponse.getQuantity())
+                .price(productResponse.getPrice())
+                .build();
+
+        OrderResponse orderResponse =
+                OrderResponse.builder()
+                        .orderId(order.getId())
+                        .orderStatus(order.getOrderStatus())
+                        .amount(order.getAmount())
+                        .orderDate(order.getOrderDate())
+                        .productDetails(productDetails)
+                        .build();
+
+        return orderResponse;
     }
 
 
