@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.time.Instant;
+import java.util.List;
 
 @Service
 @Log4j2
@@ -76,7 +77,7 @@ public class OrderServiceImpl implements OrderService {
         Order order = orderRepository.findById(orderId)
                 .orElseThrow(() ->
                         new CustomException("Order not found for the order Id: " + orderId +
-                                " NOT_FOUND", 404));
+                                " NOT_FOUND", "UNAVAILABLE", 404));
 
         ProductResponse productResponse
                 = restTemplate.getForObject(
@@ -119,6 +120,12 @@ public class OrderServiceImpl implements OrderService {
                         .build();
 
         return orderResponse;
+    }
+
+    @Override
+    public List<Order> getAllOrders() {
+        List<Order> orders = orderRepository.findAll();
+        return orders;
     }
 
 

@@ -38,6 +38,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public ProductResponse getProduct(long id) {
+        System.out.printf(String.valueOf("Product Is is : " + id));
         Product product = productRepository.findById(id)
                 .orElseThrow(() -> new ProductServiceCustomException("Product with given id not found...", "PRODUCT_NOT_FOUND"));
         ProductResponse productResponse = new ProductResponse();

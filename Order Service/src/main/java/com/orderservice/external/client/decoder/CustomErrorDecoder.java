@@ -24,10 +24,10 @@ public class CustomErrorDecoder implements ErrorDecoder {
                     = objectMapper.readValue(response.body().asInputStream(),
                     ErrorResponse.class);
             return new CustomException(errorResponse.getErrorMessage(),
-                    response.status());
+                    "UNAVAILABLE", response.status());
         } catch (IOException e) {
             throw new CustomException("Internal Server Error",
-                    500);
+                    "UNAVAILABLE", 500);
         }
     }
 }

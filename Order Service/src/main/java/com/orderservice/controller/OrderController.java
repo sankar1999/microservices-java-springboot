@@ -1,5 +1,6 @@
 package com.orderservice.controller;
 
+import com.orderservice.entity.Order;
 import com.orderservice.model.OrderRequest;
 import com.orderservice.model.OrderResponse;
 import com.orderservice.service.OrderService;
@@ -8,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/order")
@@ -28,6 +31,13 @@ public class OrderController {
         OrderResponse orderResponse =
                 orderService.getOrderDetails(orderId);
         return new ResponseEntity<>(orderResponse, HttpStatus.OK);
+    }
+
+    @GetMapping("/getAllOrders")
+    public List<Order> getAllOrders() {
+        List<Order> orders = orderService.getAllOrders();
+        return orders;
+
     }
 
 }
