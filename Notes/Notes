@@ -3,3 +3,14 @@ docker run -d -p 9411:9411 openzipkin/zipkin
 
 docker run --name latestredis -d -p6379:6379 redis            
 
+
+https://dev-86993682-admin.okta.com/admin/getting-started
+
+http://localhost:8080/login/oauth2/code/okta
+
+Okta Credentials : 
+
+
+
+
+
