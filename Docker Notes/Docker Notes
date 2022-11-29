@@ -1,0 +1,55 @@
+****** Docker Notes *******
+
+Host Port & Docker Port --> Mulitiple port 8080 in different docker container
+
+Different commands of Docker
+
+docker pull redis
+
+docker run --name redis-latest redis:latest  
+
+docker stop 62471b0d350e
+
+docker ps
+
+docker ps -a
+
+docker start 62471b0d350
+
+docker rm 62471b0d350
+
+docker images
+
+ocker run --name redis-latest -p6379:6379 -d redis:latest
+
+docker pull redis:6.2.7
+
+docker run --name redis-old -p6378:6379 -d redis:6.2.7 
+
+docker --help
+
+docker run --help
+
+docker inspect 187a962abbbe
+
+docker inspect 89a6315515f7
+
+docker logs 89a6315515f7
+
+docker exec -it 89a6315515f7 /bin/sh
+		--> redis-cli
+
+docker stop 89a6315515f7 75ec812232d4
+
+docker rmi redis
+
+docker system prune
+
+docker system prune -a
+
+Run Command --> docker run -d -p8761:8761 --name serviceregistry d469c57d2d39
+
+host.docker.internal
+
+
+

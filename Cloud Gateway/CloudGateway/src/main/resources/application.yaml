@@ -6,7 +6,7 @@ spring:
   application:
     name: API-GATEWAY
   config:
-    import: configserver:http://localhost:9095
+    import: configserver:http://${ :localhost}:9095
   cloud:
     gateway:
       routes:
@@ -57,11 +57,11 @@ spring:
 #                key-resolver: "userKeySolver"
 
 
-okta:
-  oauth2:
-    issuer: https://dev-86993682.okta.com/oauth2/default
-    audience: api://default
-    client-id: 0oa7ez8zz7ZKJODoZ5d7
-    client-secret: aeOHALY0FvlTomxEUn5uo8brHtJcGJ2-1uw0FPc_
-    scopes: openid, profile, email, offline_access
+#okta:
+#  oauth2:
+#    issuer: https://dev-86993682.okta.com/oauth2/default
+#    audience: api://default
+#    client-id: 0oa7ez8zz7ZKJODoZ5d7
+#    client-secret: aeOHALY0FvlTomxEUn5uo8brHtJcGJ2-1uw0FPc_
+#    scopes: openid, profile, email, offline_access
 
