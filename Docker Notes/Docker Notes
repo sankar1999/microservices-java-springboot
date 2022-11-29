@@ -51,5 +51,9 @@ Run Command --> docker run -d -p8761:8761 --name serviceregistry d469c57d2d39
 
 host.docker.internal
 
+docker-compose -f docker-compose.yml up -d  
+
+docker-compose -f docker-compose.yml down
+
 
 
